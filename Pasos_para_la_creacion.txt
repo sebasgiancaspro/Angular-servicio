@@ -1,0 +1,60 @@
+# Pasos para crear el Servicio
+
+
+1- Se debe de crear un servicio con el comando CLI:
+
+ng g s equipo
+
+2- Creamos un componente donde volcaremos los datos del arreglo del servicio:
+
+ng g c nosotros
+
+3- Luego en app.module.ts y en nosotros.components.ts incorporamos el servicio:
+
+import { EquipoService } from './equipo.service';
+
+4- En el providers app.module.ts agregamos el servicio:
+
+providers: [EquipoService]
+
+5- En la clase class NosotrosComponent agregamos:
+
+equipo:any[] = [];
+
+constructor( private _servicio:EquipoService) {
+    this.equipo = _servicio.obtenerEquipo();
+   }  
+
+
+6- En el HTML nosotros.component agregamos una lista para visualizar el arreglo:
+
+
+<div class="container">
+    <ul class="list-group">
+        <li class="list-group-item" *ngFor="let item of equipo">
+            <h6>Nombre: {{item.nombre}}</h6>
+            <h6>Especialidad: {{item.especialidad}}</h6>
+            <h6>Descripcion: {{item.descripcion}}</h6>
+        </li>
+    </ul>
+</div>
+
+7- Creamos un arreglo en equipo.service.ts dentro de su clase:
+
+equipo:any[] = [
+    {
+      nombre:'Juan',
+      especialidad:'PHP',
+      descripcion:'Estudiante avanzado de lenguaje PHP'
+    },
+    {
+      nombre:'Maria',
+      especialidad:'C++',
+      descripcion:'Estudiante novato de lenguaje C++'
+    }
+
+8- Por ultimo en equipo.service.ts despues del constructor creamos una funcion para visualizar el arreglo:
+
+obtenerEquipo(){
+     return this.equipo;
+   }
